@@ -1,12 +1,12 @@
 <script setup>
 import ContactHero from './ContactHero.vue';
 import InfoMaps from './InfoMaps.vue';
-import Navbar from './Navbar.vue';
+import NavbarSearchBar from './NavbarSearchBar.vue';
 import Footer from './Footer.vue';
 </script>
 
 <template>
-    <Navbar />
+    <NavbarSearchBar />
     <InfoMaps />
     <ContactHero />
     <Footer />

@@ -3,24 +3,44 @@
   <div class="px-6 lg:px-12">
     <div class="flex h-16 items-center">
       <!-- Logo -->
-      <div class="flex items-center">
+      <div class="flex items-center flex-shrink-0">
         <router-link to="/" class="flex items-center space-x-2">
           <img src="../assets/company_clear.png" alt="SkillSwap" class="h-8 w-auto" />
           <span class="text-xl font-semibold text-gray-900">SkillSwap</span>
         </router-link>
       </div>
 
+      <!-- Search Bar -->
+      <div class="hidden md:flex flex-shrink-0 w-80 ml-36">
+        <div class="relative w-full">
+          <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+            <svg class="h-5 w-5 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="11" cy="11" r="8" />
+              <path d="m21 21-4.35-4.35" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </div>
+          <input 
+            type="text" 
+            placeholder="What are you looking for?" 
+            class="w-full pl-10 pr-4 py-2 bg-gray-100 border-0 rounded-full text-sm text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-300"
+          />
+        </div>
+      </div>
+
       <!-- Center Navigation -->
-      <div class="hidden md:flex items-center space-x-8 flex-1 justify-center">
-        <router-link to="/explore" class="text-sm font-medium text-gray-700 hover:text-gray-900">Explore</router-link>
+      <div class="hidden md:flex items-center space-x-8 ml-8">
+        <router-link to="/explore" class="text-sm font-medium text-gray-900 hover:text-gray-700">Explore</router-link>
         <router-link to="/message" class="text-sm font-medium text-gray-700 hover:text-gray-900">Message</router-link>
         <router-link to="/task" class="text-sm font-medium text-gray-700 hover:text-gray-900">Task</router-link>
         <router-link to="/create-offer" class="text-sm font-medium text-gray-700 hover:text-gray-900">Create Offer</router-link>
         <router-link to="/about" class="text-sm font-medium text-gray-700 hover:text-gray-900">About</router-link>
       </div>
 
+      <!-- Spacer to push buttons right -->
+      <div class="flex-1"></div>
+
       <!-- Right: Auth Buttons -->
-      <div class="hidden md:flex items-center space-x-4">
+      <div class="hidden md:flex items-center space-x-4 flex-shrink-0">
         <button class="text-sm font-medium text-gray-700 hover:text-gray-900">Sign up</button>
         <button class="rounded-full bg-black px-6 py-2 text-sm font-medium text-white hover:bg-gray-800">Log in</button>
       </div>
