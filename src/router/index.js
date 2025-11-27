@@ -1,11 +1,13 @@
 import {createWebHistory, createRouter} from 'vue-router';
 
 import Homepage from '../components/Homepage.vue';
-import ContactPage from '../components/ContactPage.vue';
-import ExplorePage from '@/components/ExplorePage.vue';
-import MessagePage from '@/components/MessagePage.vue';
-import TaskPage from '@/components/TaskPage.vue';
-import OfferPage from '@/components/OfferPage.vue';
+import ContactPage from '@/pages/ContactPage.vue';
+import ExplorePage from '@/pages/ExplorePage.vue';
+import MessagePage from '@/pages/MessagePage.vue';
+import TaskPage from '@/pages/TaskPage.vue';
+import OfferPage from '@/pages/OfferPage.vue';
+import LoginPage from '@/pages/LoginPage.vue';
+import SignUpPage from '@/pages/SignUpPage.vue';
 
 const routes = [
   {
@@ -42,6 +44,16 @@ const routes = [
     path: '/about',
     name: 'About',
     component: ContactPage,
+  },
+  {
+    path: '/login',
+    name: 'login',
+    component: LoginPage,
+  },
+  {
+    path: '/signup',
+    name: 'signup',
+    component: SignUpPage,
   },
 ];
 

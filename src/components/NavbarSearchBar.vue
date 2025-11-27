@@ -41,8 +41,8 @@
 
       <!-- Right: Auth Buttons -->
       <div class="hidden md:flex items-center space-x-4 flex-shrink-0">
-        <button class="text-sm font-medium text-gray-700 hover:text-gray-900">Sign up</button>
-        <button class="rounded-full bg-black px-6 py-2 text-sm font-medium text-white hover:bg-gray-800">Log in</button>
+        <router-link to="/signup" class="text-sm font-medium text-gray-700 hover:text-gray-900">Sign up</router-link>
+        <router-link to="/login" class="rounded-full bg-black px-6 py-2 text-sm font-medium text-white hover:bg-gray-800">Log in</router-link>
       </div>
 
       <!-- Mobile menu button -->
@@ -69,8 +69,8 @@
       <router-link to="/create-offer" class="block rounded-md px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-100 hover:text-gray-900">Create Offer</router-link>
       <router-link to="/about" class="block rounded-md px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-100 hover:text-gray-900">About</router-link>
       <div class="border-t border-gray-200 pt-2 mt-2 space-y-2">
-        <button class="block w-full text-left rounded-md px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-100">Sign up</button>
-        <button class="block w-full rounded-md bg-black px-3 py-2 text-base font-medium text-white hover:bg-gray-800">Log in</button>
+        <router-link to="/signup" class="block w-full text-left rounded-md px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-100">Sign up</router-link>
+        <router-link to="/login" class="block w-full rounded-md bg-black px-3 py-2 text-base font-medium text-white hover:bg-gray-800">Log in</router-link>
       </div>
     </div>
   </el-disclosure>
