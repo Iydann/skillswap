@@ -7,7 +7,7 @@
       <h2 class="text-4xl font-semibold tracking-tight text-balance text-black sm:text-5xl">Contact form</h2>
       <p class="mt-2 text-lg/8 text-gray-700">Contact us for more information or to request a demo.</p>
     </div>
-    <form action="#" method="POST" class="mx-auto mt-16 max-w-xl sm:mt-20">
+    <form @submit.prevent="handleSubmit" class="mx-auto mt-16 max-w-xl sm:mt-20">
       <div class="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
         <div>
           <label for="first-name" class="block text-sm/6 font-semibold text-black">First name</label>
@@ -70,8 +70,51 @@
         </div>
       </div>
       <div class="mt-10">
-        <button type="submit" class="block w-full rounded-md bg-indigo-500 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-xs hover:bg-indigo-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">Let's talk</button>
+        <button type="submit" class="block w-full rounded-md bg-indigo-500 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-xs hover:bg-indigo-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">Send</button>
       </div>
     </form>
+
+    <!-- Success Popup -->
+    <div v-if="showPopup" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+      <div class="bg-white rounded-lg shadow-xl p-8 max-w-md mx-4 transform transition-all">
+        <div class="text-center">
+          <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-green-100 mb-4">
+            <svg class="h-6 w-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+            </svg>
+          </div>
+          <h3 class="text-lg font-semibold text-gray-900 mb-2">Pesan Terkirim!</h3>
+          <p class="text-sm text-gray-600 mb-6">Terima kasih telah menghubungi kami. Kami akan segera merespons pesan Anda.</p>
+          <button 
+            @click="closePopup"
+            class="w-full rounded-md bg-indigo-500 px-4 py-2 text-sm font-semibold text-white hover:bg-indigo-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+          >
+            Tutup
+          </button>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
+
+<script>
+export default {
+  name: 'ContactHero',
+  data() {
+    return {
+      showPopup: false
+    }
+  },
+  methods: {
+    handleSubmit() {
+      // Show success popup
+      this.showPopup = true
+      // Optionally reset form here
+      // e.target.reset()
+    },
+    closePopup() {
+      this.showPopup = false
+    }
+  }
+}
+</script>

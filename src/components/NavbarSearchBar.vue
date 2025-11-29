@@ -94,11 +94,5 @@ export default {
       }
     }
   }
-    handleSearch() {
-      if (this.searchQuery.trim()) {
-        this.$router.push({ path: '/explore', query: { search: this.searchQuery } })
-      }
-    }
-  }
 }
 </script>
