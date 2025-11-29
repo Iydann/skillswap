@@ -65,9 +65,6 @@
 
       <!-- Terms and Toggle -->
       <div class="text-center">
-        <p class="text-xs text-gray-600 mb-2">
-          By continuing, you agree to our <a href="#" class="underline">Terms</a> and <a href="#" class="underline">Privacy Policy</a>.
-        </p>
         <p class="text-xs text-gray-600">
           {{ isLogin ? "Don't have an account?" : "Already have an account?" }}
           <button 
@@ -83,6 +80,8 @@
 </template>
 
 <script>
+import { authStore } from '../store/auth'
+
 export default {
   name: 'LoginHero',
   props: {
@@ -105,10 +104,18 @@ export default {
       this.password = ''
     },
     handleSubmit() {
-      if (this.isLogin) {
-        console.log('Login:', { email: this.email, password: this.password })
-      } else {
-        console.log('Sign up:', { email: this.email })
+      if (this.email.trim()) {
+        // Extract name from email or use email as name
+        const name = this.email.split('@')[0]
+        
+        // Login user
+        authStore.login({
+          email: this.email,
+          name: name.charAt(0).toUpperCase() + name.slice(1)
+        })
+        
+        // Navigate to home
+        this.$router.push('/')
       }
     }
   }

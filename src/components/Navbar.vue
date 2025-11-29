@@ -3,15 +3,18 @@
   <div class="px-6 lg:px-12">
     <div class="flex h-16 items-center">
       <!-- Logo -->
-      <div class="flex items-center">
+      <div class="flex items-center flex-shrink-0">
         <router-link to="/" class="flex items-center space-x-2">
           <img src="../assets/company_clear.png" alt="SkillSwap" class="h-8 w-auto" />
           <span class="text-xl font-semibold text-gray-900">SkillSwap</span>
         </router-link>
       </div>
 
+      <!-- Spacer -->
+      <div class="flex-1"></div>
+
       <!-- Center Navigation -->
-      <div class="hidden md:flex items-center space-x-8 flex-1 justify-center">
+      <div class="hidden md:flex items-center space-x-8">
         <router-link to="/explore" class="text-sm font-medium text-gray-700 hover:text-gray-900">Explore</router-link>
         <router-link to="/message" class="text-sm font-medium text-gray-700 hover:text-gray-900">Message</router-link>
         <router-link to="/task" class="text-sm font-medium text-gray-700 hover:text-gray-900">Task</router-link>
@@ -19,10 +22,43 @@
         <router-link to="/about" class="text-sm font-medium text-gray-700 hover:text-gray-900">About</router-link>
       </div>
 
-      <!-- Right: Auth Buttons -->
-      <div class="hidden md:flex items-center space-x-4">
-        <router-link to="/signup" class="text-sm font-medium text-gray-700 hover:text-gray-900">Sign up</router-link>
-        <router-link to="/login" class="rounded-full bg-black px-6 py-2 text-sm font-medium text-white hover:bg-gray-800">Log in</router-link>
+      <!-- Spacer -->
+      <div class="flex-1"></div>
+
+      <!-- Right: Auth Buttons or Profile -->
+      <div class="hidden md:flex items-center space-x-4 flex-shrink-0">
+        <template v-if="!authStore.isLoggedIn">
+          <router-link to="/signup" class="text-sm font-medium text-gray-700 hover:text-gray-900">Sign up</router-link>
+          <router-link to="/login" class="rounded-full bg-black px-6 py-2 text-sm font-medium text-white hover:bg-gray-800">Log in</router-link>
+        </template>
+        <template v-else>
+          <!-- Profile Avatar with Dropdown -->
+          <div class="relative">
+            <button 
+              @click="toggleDropdown"
+              class="flex items-center justify-center w-10 h-10 rounded-full bg-indigo-500 text-white font-semibold text-sm hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+            >
+              {{ authStore.getInitials() }}
+            </button>
+            
+            <!-- Dropdown Menu -->
+            <div 
+              v-if="showDropdown"
+              class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-1 border border-gray-200 z-50"
+            >
+              <div class="px-4 py-2 border-b border-gray-200">
+                <p class="text-sm font-medium text-gray-900">{{ authStore.user.name }}</p>
+                <p class="text-xs text-gray-500 truncate">{{ authStore.user.email }}</p>
+              </div>
+              <button 
+                @click="handleLogout"
+                class="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100"
+              >
+                Log out
+              </button>
+            </div>
+          </div>
+        </template>
       </div>
 
       <!-- Mobile menu button -->
@@ -56,3 +92,36 @@
   </el-disclosure>
 </nav>
 </template>
+
+<script>
+import { authStore } from '../store/auth'
+
+export default {
+  name: 'Navbar',
+  data() {
+    return {
+      authStore,
+      showDropdown: false
+    }
+  },
+  methods: {
+    toggleDropdown() {
+      this.showDropdown = !this.showDropdown
+    },
+    handleLogout() {
+      authStore.logout()
+      this.showDropdown = false
+      this.$router.push('/')
+    }
+  },
+  mounted() {
+    authStore.checkAuth()
+    // Close dropdown when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest('.relative')) {
+        this.showDropdown = false
+      }
+    })
+  }
+}
+</script>
