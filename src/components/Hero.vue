@@ -37,6 +37,8 @@
             </div>
             <input 
               type="text" 
+              v-model="searchQuery"
+              @keyup.enter="handleSearch"
               placeholder="Explore" 
               class="w-full pl-12 pr-4 py-3 bg-white border border-gray-300 rounded-lg text-sm text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:border-transparent shadow-sm"
             />
@@ -56,3 +58,21 @@
   </div>
 </div>
 </template>
+
+<script>
+export default {
+  name: 'Hero',
+  data() {
+    return {
+      searchQuery: ''
+    }
+  },
+  methods: {
+    handleSearch() {
+      if (this.searchQuery.trim()) {
+        this.$router.push({ path: '/explore', query: { search: this.searchQuery } })
+      }
+    }
+  }
+}
+</script>

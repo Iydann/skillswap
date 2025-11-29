@@ -13,9 +13,9 @@
             Whether you're a designer, developer, writer, or marketer, SkillSwap empowers you to grow your network and complete projects through meaningful collaboration.
           </p>
           <div class="flex justify-start">
-            <a href="#" class="rounded-lg bg-black px-8 py-3 text-sm font-semibold text-white hover:bg-gray-900 transition">
-              Learn More
-            </a>
+            <router-link to="/contact" class="rounded-lg bg-black px-8 py-3 text-sm font-semibold text-white hover:bg-gray-900 transition">
+              Contact Us
+            </router-link>
           </div>
         </div>
 

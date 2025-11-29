@@ -4,74 +4,82 @@
     <div class="mx-auto w-full max-w-screen-xl">
       <div class="grid grid-cols-2 gap-8 px-4 py-6 lg:py-8 md:grid-cols-4">
         <div>
-            <h2 class="mb-6 text-sm font-semibold text-heading uppercase">Explore SkillSwap</h2>
+            <h2 class="mb-6 text-sm font-semibold text-heading uppercase">Explore Categories</h2>
             <ul class="text-body">
                 <li class="mb-4">
-                    <a href="#" class=" hover:underline">Design & Creative</a>
+                    <router-link to="/explore?category=Popular" class="hover:underline">Popular</router-link>
                 </li>
                 <li class="mb-4">
-                    <a href="#" class="hover:underline">Writing & Translation</a>
+                    <router-link to="/explore?category=Animation" class="hover:underline">Animation</router-link>
                 </li>
                 <li class="mb-4">
-                    <a href="#" class="hover:underline">Digital Marketing</a>
+                    <router-link to="/explore?category=Branding" class="hover:underline">Branding</router-link>
                 </li>
                 <li class="mb-4">
-                    <a href="#" class="hover:underline">Video, Photo, & Audio</a>
+                    <router-link to="/explore?category=Illustration" class="hover:underline">Illustration</router-link>
+                </li>
+                <li class="mb-4">
+                    <router-link to="/explore?category=Product Design" class="hover:underline">Product Design</router-link>
+                </li>
+                <li class="mb-4">
+                    <router-link to="/explore?category=Typography" class="hover:underline">Typography</router-link>
                 </li>
             </ul>
         </div>
         <div>
-            <h2 class="mb-6 text-sm font-semibold text-heading uppercase">About</h2>
+            <h2 class="mb-6 text-sm font-semibold text-heading uppercase">Quick Links</h2>
             <ul class="text-body">
                 <li class="mb-4">
-                    <a href="#" class="hover:underline">How It Works</a>
+                    <router-link to="/" class="hover:underline">Home</router-link>
                 </li>
                 <li class="mb-4">
-                    <a href="#" class="hover:underline">Blog</a>
+                    <router-link to="/explore" class="hover:underline">Explore</router-link>
                 </li>
                 <li class="mb-4">
-                    <a href="#" class="hover:underline">Terms of Service</a>
+                    <router-link to="/about" class="hover:underline">About</router-link>
                 </li>
                 <li class="mb-4">
-                    <a href="#" class="hover:underline">Privacy Policy</a>
-                </li>
-            
-            </ul>
-        </div>
-        <div>
-            <h2 class="mb-6 text-sm font-semibold text-heading uppercase">Support & Community</h2>
-            <ul class="text-body">
-                <li class="mb-4">
-                    <a href="#" class="hover:underline">Help Center (FAQ)</a>
-                </li>
-                <li class="mb-4">
-                    <a href="#" class="hover:underline">Contact Us</a>
-                </li>
-                <li class="mb-4">
-                    <a href="#" class="hover:underline">Community Forum</a>
+                    <router-link to="/create-offer" class="hover:underline">Create Offer</router-link>
                 </li>
             </ul>
         </div>
         <div>
-            <h2 class="mb-6 text-sm font-semibold text-heading uppercase">Social Media</h2>
+            <h2 class="mb-6 text-sm font-semibold text-heading uppercase">Account</h2>
             <ul class="text-body">
                 <li class="mb-4">
-                    <a href="#" class="hover:underline">Instagram</a>
+                    <router-link to="/login" class="hover:underline">Log In</router-link>
                 </li>
                 <li class="mb-4">
-                    <a href="#" class="hover:underline">Twitter</a>
+                    <router-link to="/signup" class="hover:underline">Sign Up</router-link>
                 </li>
                 <li class="mb-4">
-                    <a href="#" class="hover:underline">Tiktok</a>
+                    <router-link to="/message" class="hover:underline">Messages</router-link>
                 </li>
                 <li class="mb-4">
-                    <a href="#" class="hover:underline">Website</a>
+                    <router-link to="/task" class="hover:underline">My Tasks</router-link>
+                </li>
+            </ul>
+        </div>
+        <div>
+            <h2 class="mb-6 text-sm font-semibold text-heading uppercase">Connect</h2>
+            <ul class="text-body">
+                <li class="mb-4">
+                    <router-link to="/contact" class="hover:underline">Contact Us</router-link>
+                </li>
+                <li class="mb-4">
+                    <a href="https://instagram.com" target="_blank" class="hover:underline">Instagram</a>
+                </li>
+                <li class="mb-4">
+                    <a href="https://twitter.com" target="_blank" class="hover:underline">Twitter</a>
+                </li>
+                <li class="mb-4">
+                    <a href="https://tiktok.com" target="_blank" class="hover:underline">TikTok</a>
                 </li>
             </ul>
         </div>
     </div>
     <div class="px-4 py-6 bg-gray-100 md:flex md:items-center md:justify-between">
-        <span class="text-sm text-body sm:text-center">© 2023 <a href="https://flowbite.com/">Flowbite™</a>. All Rights Reserved.
+        <span class="text-sm text-body sm:text-center">© 2025 <a href="/" class="hover:underline">SkillSwap</a>. All Rights Reserved.
         </span>
         <div class="flex mt-4 sm:justify-center md:mt-0 space-x-2 rtl:space-x-reverse">
           <a href="#" class="text-body hover:text-heading">

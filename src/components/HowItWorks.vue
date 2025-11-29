@@ -77,9 +77,9 @@
 
       <!-- CTA -->
       <div class="text-center mt-16">
-        <a href="#" class="inline-block rounded-full bg-black px-8 py-3 text-sm font-semibold text-white hover:bg-gray-800 transition">
+        <router-link to="/explore" class="inline-block rounded-full bg-black px-8 py-3 text-sm font-semibold text-white hover:bg-gray-800 transition">
           Get Started Now
-        </a>
+        </router-link>
       </div>
     </div>
   </div>
