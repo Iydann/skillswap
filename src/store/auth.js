@@ -1,4 +1,3 @@
-// Simple auth store using Vue's reactive system
 import { reactive } from 'vue'
 
 export const authStore = reactive({
