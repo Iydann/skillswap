@@ -105,11 +105,22 @@ export default {
       this.password = ''
     },
     handleSubmit() {
-      if (this.isLogin) {
-        console.log('Login:', { email: this.email, password: this.password })
-      } else {
-        console.log('Sign up:', { email: this.email })
+      if (!this.email.trim()) {
+        alert('Please enter an email or username')
+        return
       }
+
+      const derivedName = this.email.includes('@') ? this.email.split('@')[0] : this.email
+      localStorage.setItem('isLoggedIn', 'true')
+      localStorage.setItem('userName', derivedName || 'SkillSwap User')
+
+      if (this.isLogin) {
+        alert(`Welcome back, ${derivedName || 'SkillSwap User'}!`)
+      } else {
+        alert(`Account created, ${derivedName || 'SkillSwap User'}!`)
+      }
+
+      this.$router.push('/')
     }
   }
 }

@@ -1,6 +1,6 @@
 import {createWebHistory, createRouter} from 'vue-router';
 
-import Homepage from '../components/Homepage.vue';
+import Homepage from '../pages/Homepage.vue';
 import ContactPage from '@/pages/ContactPage.vue';
 import ExplorePage from '@/pages/ExplorePage.vue';
 import MessagePage from '@/pages/MessagePage.vue';
@@ -39,11 +39,6 @@ const routes = [
     path: '/create-offer',
     name: 'Offer',
     component: OfferPage,
-  },
-  {
-    path: '/about',
-    name: 'About',
-    component: ContactPage,
   },
   {
     path: '/login',

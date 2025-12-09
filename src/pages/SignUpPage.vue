@@ -1,5 +1,5 @@
 <script setup>
-import LoginHero from '@/components/LoginHero.vue'
+import LoginHero from '@/components/Hero/LoginHero.vue'
 </script>
 
 <template>

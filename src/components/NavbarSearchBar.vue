@@ -35,16 +35,28 @@
         <router-link to="/message" class="text-sm font-medium text-gray-700 hover:text-gray-900">Message</router-link>
         <router-link to="/task" class="text-sm font-medium text-gray-700 hover:text-gray-900">Task</router-link>
         <router-link to="/create-offer" class="text-sm font-medium text-gray-700 hover:text-gray-900">Create Offer</router-link>
-        <router-link to="/about" class="text-sm font-medium text-gray-700 hover:text-gray-900">About</router-link>
       </div>
 
       <!-- Spacer to push buttons right -->
       <div class="flex-1"></div>
 
       <!-- Right: Auth Buttons -->
-      <div class="hidden md:flex items-center space-x-4 flex-shrink-0">
+      <div class="hidden md:flex items-center space-x-4 flex-shrink-0" v-if="!isLoggedIn">
         <router-link to="/signup" class="text-sm font-medium text-gray-700 hover:text-gray-900">Sign up</router-link>
         <router-link to="/login" class="rounded-full bg-black px-6 py-2 text-sm font-medium text-white hover:bg-gray-800">Log in</router-link>
+      </div>
+      <div class="hidden md:flex items-center relative flex-shrink-0" v-else>
+        <button @click="toggleUserMenu" class="flex items-center gap-2 bg-gray-100 hover:bg-gray-200 transition rounded-full pl-3 pr-4 py-2">
+          <span class="flex items-center justify-center w-8 h-8 rounded-full bg-black text-white text-sm font-semibold">{{ userInitial }}</span>
+          <span class="text-sm font-medium text-gray-800">{{ userName || 'User' }}</span>
+          <svg class="w-4 h-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+          </svg>
+        </button>
+        <div v-if="showUserMenu" class="absolute right-0 top-12 bg-white border border-gray-200 rounded-lg shadow-lg w-48 py-2">
+          <div class="px-4 py-2 text-sm text-gray-600">Signed in as <span class="font-semibold text-gray-900">{{ userName || 'User' }}</span></div>
+          <button @click="logout" class="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50">Logout</button>
+        </div>
       </div>
 
       <!-- Mobile menu button -->
@@ -69,10 +81,13 @@
       <router-link to="/message" class="block rounded-md px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-100 hover:text-gray-900">Message</router-link>
       <router-link to="/task" class="block rounded-md px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-100 hover:text-gray-900">Task</router-link>
       <router-link to="/create-offer" class="block rounded-md px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-100 hover:text-gray-900">Create Offer</router-link>
-      <router-link to="/about" class="block rounded-md px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-100 hover:text-gray-900">About</router-link>
-      <div class="border-t border-gray-200 pt-2 mt-2 space-y-2">
+      <div class="border-t border-gray-200 pt-2 mt-2 space-y-2" v-if="!isLoggedIn">
         <router-link to="/signup" class="block w-full text-left rounded-md px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-100">Sign up</router-link>
         <router-link to="/login" class="block w-full rounded-md bg-black px-3 py-2 text-base font-medium text-white hover:bg-gray-800">Log in</router-link>
+      </div>
+      <div class="border-t border-gray-200 pt-2 mt-2" v-else>
+        <div class="px-3 py-2 text-sm text-gray-600">Signed in as <span class="font-semibold">{{ userName || 'User' }}</span></div>
+        <button @click="logout" class="block w-full text-left rounded-md px-3 py-2 text-base font-medium text-red-600 hover:bg-red-50">Logout</button>
       </div>
     </div>
   </el-disclosure>
@@ -84,7 +99,15 @@ export default {
   name: 'NavbarSearchBar',
   data() {
     return {
-      searchQuery: ''
+      searchQuery: '',
+      isLoggedIn: false,
+      userName: '',
+      showUserMenu: false
+    }
+  },
+  computed: {
+    userInitial() {
+      return this.userName ? this.userName.charAt(0).toUpperCase() : 'U'
     }
   },
   methods: {
@@ -92,7 +115,31 @@ export default {
       if (this.searchQuery.trim()) {
         this.$router.push({ path: '/explore', query: { search: this.searchQuery } })
       }
+    },
+    toggleUserMenu() {
+      this.showUserMenu = !this.showUserMenu
+    },
+    logout() {
+      localStorage.removeItem('isLoggedIn')
+      localStorage.removeItem('userName')
+      this.isLoggedIn = false
+      this.userName = ''
+      this.showUserMenu = false
+      this.$router.push('/login')
+    },
+    syncAuthState() {
+      this.isLoggedIn = localStorage.getItem('isLoggedIn') === 'true'
+      this.userName = localStorage.getItem('userName') || ''
     }
+  },
+  mounted() {
+    this.syncAuthState()
+    window.addEventListener('storage', this.syncAuthState)
+    window.addEventListener('authStateChanged', this.syncAuthState)
+  },
+  beforeUnmount() {
+    window.removeEventListener('storage', this.syncAuthState)
+    window.removeEventListener('authStateChanged', this.syncAuthState)
   }
 }
 </script>

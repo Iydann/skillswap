@@ -215,6 +215,40 @@ export default {
       this.selectedContact.lastMessage = this.newMessage
       this.newMessage = ''
     }
+  },
+  mounted() {
+    // Check if new contact created from TaskHero
+    const newContactData = localStorage.getItem('newContactFromTask')
+    if (newContactData) {
+      const contactInfo = JSON.parse(newContactData)
+      
+      // Create new contact
+      const newContact = {
+        id: this.contacts.length + 1,
+        name: contactInfo.partner,
+        lastMessage: `Connected via: ${contactInfo.taskTitle}`,
+        avatar: null,
+        online: true,
+        unread: false,
+        messages: [
+          {
+            id: 1,
+            text: `Hi! I'm interested in collaborating on "${contactInfo.taskTitle}"`,
+            time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+            isMe: true
+          }
+        ]
+      }
+      
+      // Add to contacts list at the top
+      this.contacts.unshift(newContact)
+      
+      // Auto-select the new contact
+      this.selectContact(newContact.id)
+      
+      // Clear localStorage
+      localStorage.removeItem('newContactFromTask')
+    }
   }
 }
 </script>

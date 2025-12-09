@@ -36,10 +36,10 @@
                     <router-link to="/explore" class="hover:underline">Explore</router-link>
                 </li>
                 <li class="mb-4">
-                    <router-link to="/about" class="hover:underline">About</router-link>
+                    <router-link to="/create-offer" class="hover:underline">Create Offer</router-link>
                 </li>
                 <li class="mb-4">
-                    <router-link to="/create-offer" class="hover:underline">Create Offer</router-link>
+                    <router-link to="/contact" class="hover:underline">Contact Us</router-link>
                 </li>
             </ul>
         </div>
