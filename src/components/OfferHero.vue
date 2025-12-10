@@ -13,38 +13,61 @@
       </div>
 
       <div v-if="myOffers.length > 0" class="space-y-6">
-        <div v-for="offer in myOffers" :key="offer.id" class="bg-white rounded-xl p-6 shadow-sm hover:shadow-md transition-all relative group border border-gray-100">
-          <div class="flex gap-5">
-            <div class="flex-shrink-0 w-24 h-24 bg-gray-100 rounded-lg overflow-hidden">
-               <img v-if="offer.image" :src="offer.image" class="w-full h-full object-cover" />
-               <div v-else class="w-full h-full flex items-center justify-center text-gray-400">
-                  <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-               </div>
+        <div v-for="offer in myOffers" :key="offer.id" class="bg-white rounded-lg p-6 shadow-sm hover:shadow-lg transition-all duration-200 relative group">
+          <div class="flex gap-4">
+            <!-- Image Thumbnail -->
+            <div class="flex-shrink-0">
+              <div class="w-24 h-24 rounded-lg overflow-hidden bg-gray-200">
+                <img v-if="offer.image" :src="offer.image" :alt="offer.title" class="w-full h-full object-cover" />
+                <div v-else class="w-full h-full flex items-center justify-center bg-gray-300">
+                  <svg class="w-10 h-10 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                  </svg>
+                </div>
+              </div>
             </div>
 
+            <!-- Offer Content -->
             <div class="flex-1">
-              <div class="flex justify-between items-start">
-                <div>
-                   <span class="inline-block px-2 py-1 bg-gray-100 text-xs font-semibold text-gray-600 rounded mb-2">{{ offer.category }}</span>
-                   <h2 class="text-lg font-bold text-gray-900">{{ offer.title }}</h2>
+              <div class="mb-4">
+                <h2 class="text-xl font-bold text-gray-900 mb-3">{{ offer.category }}</h2>
+                <div class="space-y-1 text-sm text-gray-700">
+                  <p><span class="font-medium">{{ offer.title }}</span></p>
+                  <p><span class="font-medium">Offering:</span> {{ offer.offering }}</p>
+                  <p><span class="font-medium">Seeking:</span> {{ offer.seeking }}</p>
                 </div>
-                <span :class="statusColor(offer.status)" class="text-xs font-bold px-2 py-1 rounded-full bg-opacity-10">
+              </div>
+
+              <!-- Status and Time -->
+              <div class="flex justify-between items-center">
+                <div class="text-sm text-gray-500">
+                  Posted {{ offer.postedTime }}
+                </div>
+                <div class="text-sm font-medium" :class="{
+                  'text-green-600': offer.status === 'Active',
+                  'text-gray-800': offer.status === 'Completed',
+                  'text-blue-600': offer.status === 'Pending'
+                }">
                   {{ offer.status }}
-                </span>
+                </div>
               </div>
-              
-              <div class="mt-3 grid grid-cols-1 md:grid-cols-2 gap-2 text-sm text-gray-600">
-                 <p><span class="font-medium text-black">Offering:</span> {{ truncate(offer.offering) }}</p>
-                 <p><span class="font-medium text-black">Seeking:</span> {{ truncate(offer.seeking) }}</p>
-              </div>
-              
-              <p class="text-xs text-gray-400 mt-3">Posted {{ offer.postedTime }}</p>
             </div>
           </div>
 
-          <div class="absolute top-4 right-4 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-            <button @click="viewDetails(offer)" class="px-3 py-1.5 bg-black text-white text-xs font-medium rounded-md hover:bg-gray-800">View</button>
-            <button @click="deleteOffer(offer.id)" class="px-3 py-1.5 bg-red-50 text-red-600 border border-red-100 text-xs font-medium rounded-md hover:bg-red-100">Delete</button>
+          <!-- Hover Buttons -->
+          <div class="absolute top-6 right-6 flex gap-3 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+            <button 
+              @click="viewDetails(offer)"
+              class="px-4 py-2 bg-black text-white text-sm font-medium rounded-full hover:bg-gray-800 transition"
+            >
+              View Details
+            </button>
+            <button 
+              @click="deleteOffer(offer.id)"
+              class="px-4 py-2 bg-gray-600 text-white text-sm font-medium rounded-full hover:bg-gray-700 transition"
+            >
+              Delete
+            </button>
           </div>
         </div>
       </div>
@@ -77,7 +100,7 @@
            </div>
            <div class="grid grid-cols-2 gap-4">
               <div class="space-y-1">
-                <label class="text-xs font-bold uppercase text-green-600 tracking-wider">What You </label>
+                <label class="text-xs font-bold uppercase text-green-600 tracking-wider">What You Offer</label>
                 <textarea v-model="newOffer.offering" rows="3" class="w-full p-3 bg-green-50 border-none rounded-lg focus:ring-2 focus:ring-green-500"></textarea>
               </div>
               <div class="space-y-1">
@@ -91,46 +114,34 @@
            <button @click="createOffer" class="px-6 py-2 bg-black text-white font-medium rounded-lg hover:bg-gray-800 transition">Post Offer</button>
         </div>
       </div>
-
-      <div v-if="activeModal === 'detail' && selectedOffer" class="bg-white rounded-2xl shadow-xl w-full max-w-2xl overflow-hidden" @click.stop>
-         <div class="relative h-48 bg-gray-200">
-            <button @click="closeModal" class="absolute top-4 right-4 bg-white/80 p-2 rounded-full hover:bg-white transition">✕</button>
-            <div class="w-full h-full flex items-center justify-center text-gray-400">
-               <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-            </div>
-         </div>
-         <div class="p-8">
-            <h2 class="text-2xl font-bold mb-2">{{ selectedOffer.title }}</h2>
-            <div class="flex gap-2 mb-6">
-               <span class="px-2 py-1 bg-gray-100 text-xs rounded">{{ selectedOffer.category }}</span>
-            </div>
-            <div class="space-y-4">
-               <div class="bg-green-50 p-4 rounded-lg border border-green-100">
-                  <h3 class="text-green-800 font-bold text-sm mb-1">Offering</h3>
-                  <p class="text-gray-700">{{ selectedOffer.offering }}</p>
-               </div>
-               <div class="bg-blue-50 p-4 rounded-lg border border-blue-100">
-                  <h3 class="text-blue-800 font-bold text-sm mb-1">Seeking</h3>
-                  <p class="text-gray-700">{{ selectedOffer.seeking }}</p>
-               </div>
-            </div>
-         </div>
-      </div>
-
     </div>
+
+    <!-- Detail Modal -->
+    <DetailModal 
+      :isOpen="showDetailModal"
+      :data="selectedOffer"
+      type="offer"
+      @close="closeDetailModal"
+    />
   </div>
 </template>
 
 <script>
+import DetailModal from './DetailModal.vue'
+
 export default {
   name: 'OfferHero',
+  components: {
+    DetailModal
+  },
   data() {
     return {
-      activeModal: null, // 'create' | 'detail' | null
+      activeModal: null, // 'create' | null
+      showDetailModal: false,
       selectedOffer: null,
       categories: [
         'Animation', 'Branding', 'Illustration', 'Product Design', 
-        'Typography', 'Creative & Marketing', 'Hobbies', 'Programming'
+        'Typography'
       ],
       newOffer: { category: '', title: '', offering: '', seeking: '' },
       myOffers: []
@@ -138,24 +149,23 @@ export default {
   },
   methods: {
     openModal(type) {
-      this.activeModal = type;
-      document.body.style.overflow = 'hidden';
+      if (type === 'create') {
+        this.activeModal = type;
+        document.body.style.overflow = 'hidden';
+      }
     },
     closeModal() {
       this.activeModal = null;
-      this.selectedOffer = null;
       this.resetForm();
+      document.body.style.overflow = 'auto';
+    },
+    closeDetailModal() {
+      this.showDetailModal = false;
+      this.selectedOffer = null;
       document.body.style.overflow = 'auto';
     },
     resetForm() {
        this.newOffer = { category: '', title: '', offering: '', seeking: '' };
-    },
-    statusColor(status) {
-      const map = { 'Active': 'text-green-600', 'Completed': 'text-gray-600', 'Pending': 'text-blue-600' };
-      return map[status] || 'text-gray-600';
-    },
-    truncate(text) {
-       return text.length > 50 ? text.substring(0, 50) + '...' : text;
     },
     createOffer() {
       // Validasi sederhana
@@ -165,7 +175,7 @@ export default {
         id: Date.now(),
         ...this.newOffer,
         status: 'Active',
-        postedTime: new Date().toLocaleDateString(), // Lebih human dari "just now" statis
+        postedTime: new Date().toLocaleDateString(),
         image: null
       };
 
@@ -175,7 +185,8 @@ export default {
     },
     viewDetails(offer) {
       this.selectedOffer = offer;
-      this.openModal('detail');
+      this.showDetailModal = true;
+      document.body.style.overflow = 'hidden';
     },
     deleteOffer(id) {
       if (!confirm('Remove this offer?')) return;

@@ -44,7 +44,10 @@
       <!-- Spacer (only when search bar is visible) -->
       <div v-if="showSearchBar" class="flex-1"></div>
 
-      <!-- Right: Auth Buttons -->
+      <!-- Spacer for mobile -->
+      <div class="flex-1 md:hidden"></div>
+
+      <!-- Right: Auth Buttons (Desktop only) -->
       <div class="hidden md:flex items-center space-x-4" :class="showSearchBar ? 'flex-shrink-0' : ''" v-if="!isLoggedIn">
         <router-link to="/signup" class="text-sm font-medium text-gray-700 hover:text-gray-900">Sign up</router-link>
         <router-link to="/login" class="rounded-full bg-black px-6 py-2 text-sm font-medium text-white hover:bg-gray-800">Log in</router-link>
@@ -57,20 +60,20 @@
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
           </svg>
         </button>
-        <div v-if="showUserMenu" class="absolute right-0 top-12 bg-white border rounded-lg shadow-lg w-48 py-2">
+        <div v-if="showUserMenu" class="absolute right-0 top-12 bg-white border rounded-lg shadow-lg w-48 py-2 z-50">
           <div class="px-4 py-2 text-sm text-gray-600">Signed in as <span class="font-semibold">{{ userName || 'User' }}</span></div>
           <button @click="logout" class="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50">Logout</button>
         </div>
       </div>
 
       <!-- Mobile menu button -->
-      <div class="flex md:hidden">
-        <button type="button" command="--toggle" commandfor="mobile-menu" class="inline-flex items-center justify-center rounded-md p-2 text-gray-700 hover:bg-gray-100 hover:text-gray-900">
+      <div class="md:hidden">
+        <button @click="toggleMobileMenu" type="button" class="inline-flex items-center justify-center rounded-md p-2 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none">
           <span class="sr-only">Open main menu</span>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="size-6 in-aria-expanded:hidden">
+          <svg v-if="!showMobileMenu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="w-6 h-6">
             <path d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" stroke-linecap="round" stroke-linejoin="round" />
           </svg>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="size-6 not-in-aria-expanded:hidden">
+          <svg v-else viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="w-6 h-6">
             <path d="M6 18 18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round" />
           </svg>
         </button>
@@ -79,32 +82,19 @@
   </div>
 
   <!-- Mobile menu -->
-  <el-disclosure id="mobile-menu" hidden class="md:hidden border-t">
-    <div class="space-y-1 px-4 pt-2 pb-3">
+  <div v-if="showMobileMenu" class="md:hidden border-t border-gray-200 bg-white shadow-lg">
+    <div class="px-4 py-3 space-y-1">
       <router-link 
         v-for="link in navLinks" 
         :key="link.to" 
-        :to="link.to" 
-        class="block rounded-md px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-100"
+        :to="link.to"
+        @click="closeMobileMenu"
+        class="block rounded-md px-4 py-3 text-base font-medium text-gray-700 hover:bg-gray-100 transition"
       >
         {{ link.label }}
       </router-link>
-      <div v-if="!isLoggedIn" class="border-t border-gray-200 pt-2 mt-2 space-y-2">
-        <router-link to="/signup" class="block w-full text-left rounded-md px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-100">Sign up</router-link>
-        <router-link to="/login" class="block w-full rounded-md bg-black px-3 py-2 text-base font-medium text-white hover:bg-gray-800">Log in</router-link>
-      </div>
-      <div v-else class="border-t border-gray-200 pt-3 mt-3 space-y-2">
-        <div class="flex items-center gap-3 px-3 py-2">
-          <span class="flex items-center justify-center w-10 h-10 rounded-full bg-black text-white text-sm font-semibold">{{ userInitial }}</span>
-          <div>
-            <p class="text-sm font-semibold text-gray-900">{{ userName || 'User' }}</p>
-            <p class="text-xs text-gray-500">Tap below to logout</p>
-          </div>
-        </div>
-        <button @click="logout" class="block w-full text-left rounded-md px-3 py-2 text-base font-medium text-red-600 hover:bg-red-50">Logout</button>
-      </div>
     </div>
-  </el-disclosure>
+  </div>
 </nav>
 </template>
 
@@ -122,7 +112,8 @@ export default {
       searchQuery: '',
       isLoggedIn: localStorage.getItem('isLoggedIn') === 'true',
       userName: localStorage.getItem('userName') || '',
-      showUserMenu: false
+      showUserMenu: false,
+      showMobileMenu: false
     }
   },
   computed: {
@@ -142,6 +133,12 @@ export default {
     },
     toggleUserMenu() {
       this.showUserMenu = !this.showUserMenu
+    },
+    toggleMobileMenu() {
+      this.showMobileMenu = !this.showMobileMenu
+    },
+    closeMobileMenu() {
+      this.showMobileMenu = false
     },
     logout() {
       localStorage.removeItem('isLoggedIn')
