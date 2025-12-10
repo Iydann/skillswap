@@ -1,11 +1,11 @@
 <script setup>
-import NavbarSearchBar from '@/components/NavbarSearchBar.vue';
-import MessageHero from '@/components/Hero/MessageHero.vue';
+import Navbar from '@/components/Navbar.vue';
+import MessageHero from '@/components/MessageHero.vue';
 import Footer from '@/components/Footer.vue';
 </script>
 
 <template>
-  <NavbarSearchBar />
+  <Navbar />
   <MessageHero />
   <Footer />
 </template>

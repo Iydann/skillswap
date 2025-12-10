@@ -1,7 +1,6 @@
 import {createWebHistory, createRouter} from 'vue-router';
 
 import Homepage from '../pages/Homepage.vue';
-import ContactPage from '@/pages/ContactPage.vue';
 import ExplorePage from '@/pages/ExplorePage.vue';
 import MessagePage from '@/pages/MessagePage.vue';
 import TaskPage from '@/pages/TaskPage.vue';
@@ -14,11 +13,6 @@ const routes = [
     path: '/',
     name: 'Homepage',
     component: Homepage,
-  },
-  {
-    path: '/contact',
-    name: 'Contactpage',
-    component: ContactPage,
   },
   {
     path: '/explore',

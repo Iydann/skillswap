@@ -1,9 +1,9 @@
 <script setup>
-import Hero from './Hero.vue';
-import HowItWorks from './HowItWorks.vue';
-import CTA from './CTA.vue';
-import Navbar from './Navbar.vue';
-import Footer from './Footer.vue';
+import Hero from '@/components/Hero.vue';
+import HowItWorks from '@/components/HowItWorks.vue';
+import CTA from '@/components/CTA.vue';
+import Navbar from '@/components/Navbar.vue';
+import Footer from '@/components/Footer.vue';
 </script>
 
 <template>

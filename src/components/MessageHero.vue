@@ -26,17 +26,13 @@
                   :alt="contact.name"
                   class="w-full h-full object-cover"
                 />
-                <div v-else class="w-full h-full flex items-center justify-center bg-gray-300">
-                  <svg class="w-8 h-8 text-gray-500" fill="currentColor" viewBox="0 0 24 24">
+                <div v-else class="w-full h-full flex items-center justify-center bg-gray-300 text-gray-500">
+                  <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
                   </svg>
                 </div>
               </div>
-              <!-- Online indicator -->
-              <span 
-                v-if="contact.online" 
-                class="absolute bottom-0 right-0 w-4 h-4 bg-green-500 border-2 border-white rounded-full"
-              ></span>
+              <span v-if="contact.online" class="absolute bottom-0 right-0 w-4 h-4 bg-green-500 border-2 border-white rounded-full"></span>
             </div>
 
             <!-- Message Content -->
@@ -50,7 +46,7 @@
         <!-- Chat Box -->
         <div class="w-1/2 bg-white rounded-lg shadow-lg flex flex-col h-[600px]" v-if="selectedContact">
           <!-- Chat Header -->
-          <div class="border-b border-gray-200 p-4 flex items-center gap-3">
+          <div class="border-b p-4 flex items-center gap-3">
             <div class="w-10 h-10 rounded-full overflow-hidden bg-gray-200">
               <img 
                 v-if="selectedContact.avatar" 
@@ -58,14 +54,14 @@
                 :alt="selectedContact.name"
                 class="w-full h-full object-cover"
               />
-              <div v-else class="w-full h-full flex items-center justify-center bg-gray-300">
-                <svg class="w-5 h-5 text-gray-500" fill="currentColor" viewBox="0 0 24 24">
+              <div v-else class="w-full h-full flex items-center justify-center bg-gray-300 text-gray-500">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
                 </svg>
               </div>
             </div>
             <div>
-              <h3 class="font-semibold text-gray-900">{{ selectedContact.name }}</h3>
+              <h3 class="font-semibold">{{ selectedContact.name }}</h3>
               <p class="text-xs text-gray-500" v-if="selectedContact.online">Online</p>
             </div>
           </div>

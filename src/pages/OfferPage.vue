@@ -1,11 +1,11 @@
 ﻿<script setup>
-import NavbarSearchBar from '@/components/NavbarSearchBar.vue';
-import OfferHero from '@/components/Hero/OfferHero.vue';
+import Navbar from '@/components/Navbar.vue';
+import OfferHero from '@/components/OfferHero.vue';
 import Footer from '@/components/Footer.vue';
 </script>
 
 <template>
-  <NavbarSearchBar />
+  <Navbar />
   <OfferHero />
   <Footer />
 </template>

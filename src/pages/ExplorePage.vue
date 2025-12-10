@@ -1,11 +1,11 @@
 <script setup>
-import NavbarSearchBar from '@/components/NavbarSearchBar.vue';
+import Navbar from '@/components/Navbar.vue';
 import Footer from '@/components/Footer.vue';
-import ExploreHero from '@/components/Hero/ExploreHero.vue';
+import ExploreHero from '@/components/ExploreHero.vue';
 </script>
 
 <template>
-  <NavbarSearchBar />
+  <Navbar />
   <ExploreHero />
   <Footer />
 </template>

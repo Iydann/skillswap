@@ -4,79 +4,25 @@
     <div class="px-6 lg:px-12 mb-8">
       <div class="flex gap-2 flex-wrap">
         <button 
-          @click="selectCategory('Discover')"
-          :class="selectedCategory === 'Discover' 
-            ? 'bg-black text-white' 
-            : 'bg-white text-gray-700 border border-gray-300 hover:bg-gray-50'"
-          class="px-5 py-2 rounded-full font-medium text-sm transition-all duration-200"
+          v-for="cat in categories"
+          :key="cat"
+          @click="selectCategory(cat)"
+          :class="selectedCategory === cat ? 'bg-black text-white' : 'bg-white text-gray-700 border hover:bg-gray-50'"
+          class="px-5 py-2 rounded-full font-medium text-sm transition"
         >
-          Discover
-        </button>
-        <button 
-          @click="selectCategory('Popular')"
-          :class="selectedCategory === 'Popular' 
-            ? 'bg-black text-white' 
-            : 'bg-white text-gray-700 border border-gray-300 hover:bg-gray-50'"
-          class="px-5 py-2 rounded-full font-medium text-sm transition-all duration-200"
-        >
-          Popular
-        </button>
-        <button 
-          @click="selectCategory('Animation')"
-          :class="selectedCategory === 'Animation' 
-            ? 'bg-black text-white' 
-            : 'bg-white text-gray-700 border border-gray-300 hover:bg-gray-50'"
-          class="px-5 py-2 rounded-full font-medium text-sm transition-all duration-200"
-        >
-          Animation
-        </button>
-        <button 
-          @click="selectCategory('Branding')"
-          :class="selectedCategory === 'Branding' 
-            ? 'bg-black text-white' 
-            : 'bg-white text-gray-700 border border-gray-300 hover:bg-gray-50'"
-          class="px-5 py-2 rounded-full font-medium text-sm transition-all duration-200"
-        >
-          Branding
-        </button>
-        <button 
-          @click="selectCategory('Illustration')"
-          :class="selectedCategory === 'Illustration' 
-            ? 'bg-black text-white' 
-            : 'bg-white text-gray-700 border border-gray-300 hover:bg-gray-50'"
-          class="px-5 py-2 rounded-full font-medium text-sm transition-all duration-200"
-        >
-          Illustration
-        </button>
-        <button 
-          @click="selectCategory('Product Design')"
-          :class="selectedCategory === 'Product Design' 
-            ? 'bg-black text-white' 
-            : 'bg-white text-gray-700 border border-gray-300 hover:bg-gray-50'"
-          class="px-5 py-2 rounded-full font-medium text-sm transition-all duration-200"
-        >
-          Product Design
-        </button>
-        <button 
-          @click="selectCategory('Typography')"
-          :class="selectedCategory === 'Typography' 
-            ? 'bg-black text-white' 
-            : 'bg-white text-gray-700 border border-gray-300 hover:bg-gray-50'"
-          class="px-5 py-2 rounded-full font-medium text-sm transition-all duration-200"
-        >
-          Typography
+          {{ cat }}
         </button>
       </div>
       <!-- Active Filter / Search Info -->
       <div class="mt-4 text-sm text-gray-600">
         <template v-if="activeSearchQuery">
           <span class="inline-flex items-center px-3 py-1 rounded-full bg-blue-100 text-blue-800 text-xs font-medium mr-2">Discover</span>
-          Search results for: <span class="font-medium">"{{ activeSearchQuery }}"</span>
-          <span class="ml-2 text-xs text-gray-500">({{ filteredProjects.length }} projects found)</span>
+          Search results for: <span class="font-semibold">"{{ activeSearchQuery }}"</span>
+          <span class="ml-2 text-xs">({{ filteredProjects.length }} found)</span>
         </template>
         <template v-else>
-          Showing category: <span class="font-medium">{{ selectedCategory }}</span>
-          <span class="ml-2 text-xs text-gray-500">({{ filteredProjects.length }} total)</span>
+          Showing: <span class="font-semibold">{{ selectedCategory }}</span>
+          <span class="ml-2 text-xs">({{ filteredProjects.length }})</span>
         </template>
       </div>
     </div>
@@ -149,15 +95,18 @@
             <h2 class="text-3xl font-bold text-gray-900 mb-4">{{ selectedProject.title }}</h2>
           </div>
 
-          <!-- What They're Offering -->
-          <div class="mb-6">
-            <h3 class="text-lg font-semibold text-gray-900 mb-2 flex items-center">
-              <svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"></path>
-              </svg>
-              What They're Offering
-            </h3>
-            <p class="text-gray-700 bg-green-50 p-4 rounded-lg">{{ selectedProject.offering }}</p>
+          <!-- Additional Info -->
+          <div class="bg-gray-50 rounded-lg p-4 mb-6">
+            <div class="grid grid-cols-2 gap-4 text-sm">
+              <div>
+                <span class="text-gray-500">Posted by:</span>
+                <p class="font-medium text-gray-900">Anonymous User</p>
+              </div>
+              <div>
+                <span class="text-gray-500">Category:</span>
+                <p class="font-medium text-gray-900">{{ selectedProject.category }}</p>
+              </div>
+            </div>
           </div>
 
           <!-- What They're Seeking -->
@@ -171,18 +120,15 @@
             <p class="text-gray-700 bg-blue-50 p-4 rounded-lg">{{ selectedProject.seeking }}</p>
           </div>
 
-          <!-- Additional Info -->
-          <div class="bg-gray-50 rounded-lg p-4 mb-6">
-            <div class="grid grid-cols-2 gap-4 text-sm">
-              <div>
-                <span class="text-gray-500">Posted by:</span>
-                <p class="font-medium text-gray-900">Anonymous User</p>
-              </div>
-              <div>
-                <span class="text-gray-500">Category:</span>
-                <p class="font-medium text-gray-900">{{ selectedProject.category }}</p>
-              </div>
-            </div>
+          <!-- What They're Offering -->
+          <div class="mb-6">
+            <h3 class="text-lg font-semibold text-gray-900 mb-2 flex items-center">
+              <svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"></path>
+              </svg>
+              What They're Offering
+            </h3>
+            <p class="text-gray-700 bg-green-50 p-4 rounded-lg">{{ selectedProject.offering }}</p>
           </div>
 
           <!-- Set Deadline Section -->
@@ -234,6 +180,7 @@ export default {
   name: 'ExploreHero',
   data() {
     return {
+      categories: ['Discover', 'Popular', 'Animation', 'Branding', 'Illustration', 'Product Design', 'Typography'],
       selectedCategory: 'Popular',
       itemsPerPage: 12,
       currentPage: 1,

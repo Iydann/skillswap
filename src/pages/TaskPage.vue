@@ -1,11 +1,11 @@
 <script setup>
-import NavbarSearchBar from '@/components/NavbarSearchBar.vue';
-import TaskHero from '@/components/Hero/TaskHero.vue';
+import Navbar from '@/components/Navbar.vue';
+import TaskHero from '@/components/TaskHero.vue';
 import Footer from '@/components/Footer.vue';
 </script>
 
 <template>
-  <NavbarSearchBar />
+  <Navbar />
   <TaskHero />
   <Footer />
 </template>
