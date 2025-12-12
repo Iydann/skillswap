@@ -7,6 +7,8 @@ import TaskPage from '@/pages/TaskPage.vue';
 import OfferPage from '@/pages/OfferPage.vue';
 import LoginPage from '@/pages/LoginPage.vue';
 import SignUpPage from '@/pages/SignUpPage.vue';
+import CvPage from '@/pages/CvPage.vue';
+
 
 const routes = [
   {
@@ -44,6 +46,11 @@ const routes = [
     name: 'signup',
     component: SignUpPage,
   },
+  {
+    path: '/cv',
+    name: 'cv',
+    component: CvPage,
+  }
 ];
 
 const router = createRouter({

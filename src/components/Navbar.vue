@@ -107,7 +107,8 @@ export default {
         { to: '/explore', label: 'Explore' },
         { to: '/message', label: 'Message' },
         { to: '/task', label: 'Task' },
-        { to: '/create-offer', label: 'Create Offer' }
+        { to: '/create-offer', label: 'Create Offer' },
+        { to: '/cv', label: 'CV' }
       ],
       searchQuery: '',
       isLoggedIn: localStorage.getItem('isLoggedIn') === 'true',
@@ -121,7 +122,7 @@ export default {
       return this.userName ? this.userName.charAt(0).toUpperCase() : 'U'
     },
     showSearchBar() {
-      const searchPages = ['/explore', '/message', '/task', '/create-offer']
+      const searchPages = ['/explore', '/message', '/task', '/create-offer', '/cv']
       return searchPages.includes(this.$route.path)
     }
   },
